@@ -30,7 +30,7 @@ $error   = NULL;
  *
  */
 if (JRequest::getVar('module')) {
-	jimport( 'joomla.application.module.helper' );
+	jimport('joomla.application.module.helper');
 	$module       = JRequest::getVar('module');
 	$moduleObject = JModuleHelper::getModule('mod_' . $module, NULL);
 
@@ -43,7 +43,17 @@ if (JRequest::getVar('module')) {
 		jimport('joomla.filesystem.file');
 		$helperFile = JPATH_BASE . '/modules/mod_' . $module . '/helper.php';
 
-		$class  = 'mod' . ucfirst($module) . 'Helper';
+		if (strpos($module, '_')) {
+			$parts = explode('_', $module);
+			$class = 'mod';
+			foreach ($parts as $part) {
+				$class .= ucfirst($part);
+			}
+			$class .= 'Helper';
+		} else {
+			$class = 'mod' . ucfirst($module) . 'Helper';
+		}
+
 		$method = JRequest::getVar('method') ? JRequest::getVar('method') : 'get';
 
 		if (JFile::exists($helperFile)) {
