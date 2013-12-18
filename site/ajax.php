@@ -52,6 +52,8 @@ elseif (JRequest::getVar('module')) {
 			$parts = explode('_', $module);
 		} elseif (strpos($module, '-')) {
 			$parts = explode('-', $module);
+		} else {
+			$parts = null;
 		}
 
 		if ($parts) {
