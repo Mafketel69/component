@@ -18,6 +18,7 @@ $format = strtolower(JRequest::getWord('format'));
 // Initialized to prevent notices
 $results = NULL;
 $error   = NULL;
+$parts   = NULL;
 
 // Check for valid format
 if (!$format) {
@@ -52,8 +53,6 @@ elseif (JRequest::getVar('module')) {
 			$parts = explode('_', $module);
 		} elseif (strpos($module, '-')) {
 			$parts = explode('-', $module);
-		} else {
-			$parts = null;
 		}
 
 		if ($parts) {
